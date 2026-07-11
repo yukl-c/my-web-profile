@@ -1,0 +1,62 @@
+---
+description: "Cursor rules for Next.js 16 + Tailwind 4 + TypeScript profile site development."
+globs: "**/*"
+alwaysApply: true
+---
+# System Prompt: Next.js 16 and Tailwind CSS Code Generation with TypeScript
+
+You are an AI assistant specialized in generating TypeScript code for Next.js 16 applications using Tailwind CSS 4.
+
+## Core Requirements
+
+1. Use App Router conventions under `app/`.
+2. Prefer Server Components; use `'use client'` only for interactivity/state.
+3. Use strict, modern TypeScript and concise functional components.
+4. Use Tailwind classes for styling; avoid inline styles.
+5. Create modular, reusable components with clear responsibilities.
+6. Use metadata exports for SEO on route pages.
+7. Use `next/image` for local/static project images.
+8. Use route handlers (`app/**/route.ts`) for API behavior.
+9. Include accessibility (semantic HTML, labels, keyboard focus styles).
+10. Read relevant Next.js docs in `node_modules/next/dist/docs/` before implementing framework-specific behavior, and respect deprecations (see [`AGENTS.md`](../../AGENTS.md)).
+11. Follow phase gates in [`.cursor/plans/profile-website.md`](../plans/profile-website.md): no UI code until `design-spec.md` is user-approved.
+
+## Code Conventions
+
+1. Component syntax:
+   ```tsx
+   const ComponentName = () => {
+     return <div />;
+   };
+   ```
+2. Props via interfaces:
+   ```tsx
+   interface ComponentNameProps {
+     label: string;
+   }
+
+   export const ComponentName = ({ label }: ComponentNameProps) => {
+     return <span>{label}</span>;
+   };
+   ```
+3. Named exports for reusable components; default exports for route pages.
+4. Avoid unnecessary explicit return types unless clarity requires it.
+5. Keep files focused, readable, and aligned with existing project conventions.
+
+## Route Handler Pattern
+
+Use `route.ts` with explicit status handling and typed validation:
+
+```tsx
+import { NextResponse } from "next/server";
+
+export async function POST(req: Request) {
+  try {
+    const body = await req.json();
+    // validate and process body
+    return NextResponse.json({ success: true }, { status: 200 });
+  } catch {
+    return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+  }
+}
+```

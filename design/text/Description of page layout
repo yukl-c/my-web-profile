@@ -1,0 +1,47 @@
+### Page Layout & Interaction Blueprint (Updated)
+
+**Global Responsive Strategy**
+
+* **Fluid Scaling:** The entire layout is designed to be fully responsive. While the baseline reference is a 30.5 cm x 19 cm laptop screen, all spatial relationships (like 70% width or 80% height) utilize relative CSS units (percentages, `vh`/`vw`, or flex/grid) to automatically scale down and adapt to tablet and mobile screens.
+
+**1. Initial Landing State (Before Interaction)**
+
+* **Container Constraint:** The main interface is centered and occupies a maximum of 70% of the screen's width on desktop sizes.
+* **Scroll Behavior:** The page is strictly unscrollable in this state.
+* **Header Section:** The top block houses the Title, taking up approximately 10% of the screen height, and features an `amber-200` background.
+* **Navigation Section:** Below the title is a section taking up roughly 30% of the screen height with an `amber-800` background. This section contains a horizontal row of **four Main Buttons**:
+1. **About**
+2. **Work**
+3. **Project**
+4. **Contact**
+
+
+
+**2. Active State (After Main Button Click)**
+
+* **Layout Shift:** Clicking any of the four Main Buttons triggers a state change. The Title and the Navigation Section move upwards toward the top of the viewport, maintaining their original gap distance.
+* **Content Expansion:** A new "Content" container dynamically fades or slides in below the buttons. This expanded area lengthens to occupy 80% of the screen height and becomes vertically scrollable.
+
+**3. Content Views (Mapped to the Four Main Buttons)**
+Depending on which Main Button is clicked, the dynamic Content container will render one of the following four views:
+
+* **About (Profile/Summary View)**
+* *Top Split:* The top portion is divided horizontally. The left 70% displays the user's Name and a Personal Summary text box. The right 30% holds the circular Profile Picture.
+* *Skills:* Below the summary is a "Tech Stack" section utilizing the Tag component to categorize skills (e.g., "Languages" and "Frontend").
+* *History:* The bottom portion displays "Education" and "Certification" sections, constructed using the Timeline node and Header Box components.
+
+
+* **Work View**
+* *Structure:* This view relies entirely on the central vertical Timeline structure.
+* *Layout:* Chronological dates sit on the left track, connecting via horizontal lines to expandable Header Boxes on the right track. Work-specific Tags are displayed within the expanded Header Boxes.
+
+
+* **Project View**
+* *Structure:* Shares the exact same architectural layout as the Work view (central Timeline with expandable Header Boxes on the right).
+* *Layout:* Dedicated specifically to displaying projects chronologically, utilizing Tags within the Header Boxes for specific tech stacks or project roles.
+
+
+* **Contact View**
+* *Structure:* The container is divided vertically into two equal halves (50% top, 50% bottom).
+* *Top Half (Info):* Displays static contact details (telephone number, email) and renders the circular Icon Buttons for social links (GitHub, LinkedIn).
+* *Bottom Half (Form):* Dedicated to user input, featuring a large rectangular Comment Field with a centered "Submit" button placed underneath it.

@@ -1,0 +1,86 @@
+### Technical UI/UX Component Blueprint
+
+To ensure a clean architectural implementation—ideal for translating visual layouts directly into a structured component tree—feed this exact description into Cursor.
+
+**Global Design Tokens**
+
+* **Responsive Baseline:** The baseline aspect ratio is a desktop viewport (approx 16:10, mirroring the 30.5cm x 19cm physical reference), utilizing fluid layouts (flexbox/grid) to scale down for tablet and mobile screens.
+* **Typography:** The base font weight across the application is `font-normal`.
+* **Color Palette:** Standardized on the `amber` scale (`amber-50`, `amber-100`, `amber-200`, `amber-400`, `amber-500`, `amber-600`, `amber-900`, `amber-950`).
+
+#### 1. Layout & Typography Components
+
+* **Title Component**
+* **Container:** `w-full`, `bg-white`, with a responsive top margin (e.g., `mt-[5vh]` or `mt-8`). Minimum height is set to `min-h-[3rem]`, but the container must dynamically grow vertically to accommodate line breaks.
+* **Text:** `text-black`, `font-bold`, `text-center`. The text wrapper has a maximum width of `max-w-[80%]`, centered horizontally via `mx-auto`.
+
+
+
+#### 2. Interactive Buttons
+
+* **MainButton Component**
+* **Container:** Responsive fixed square (e.g., `w-12 h-12`), `border-2`, `rounded-md`, containing an SVG icon (e.g., `w-8 h-8`) with `p-[2px]`.
+* **Content Layout:** Flex column, with the text rendered *inside* the button container, centered below the SVG icon.
+* **States:**
+* *Default:* White text, white border.
+* *Active/Clicked:* `text-amber-200`, `border-amber-200`.
+* *Hover restriction:* Explicitly **no** shadow effects on hover for the icon.
+
+
+
+
+* **IconButton Component**
+* **Icon Container:** SVG centered inside a circular background (`bg-white`, `rounded-full`, e.g., `w-8 h-8`).
+* **Text Layout:** White text placed strictly below the circular icon container, centered. (This layout is unique to this specific component).
+* **Hover State:** Apply a thin grey shadow (`hover:drop-shadow-md`) strictly to *both* the circular icon container and the text.
+
+
+* **CloseButton Component**
+* **Container:** Rectangular shape, `border border-black`.
+* **Text:** Hardcoded "Close", `text-amber-950`.
+* **States:** Default background is `bg-amber-400`. Hover background is `bg-amber-200`.
+
+
+
+#### 3. Information Display Components
+
+* **ProfilePicture Component**
+* **Container:** `rounded-full`, `overflow-hidden`, responsive size matching the button scales (e.g., `w-8 h-8`), wrapping an `<img>` or background image.
+
+
+* **Tag Component**
+* **Container:** `rounded-full` (pill shape), `w-fit`, fixed height (e.g., `h-[1.5rem]`), `p-[2px]`.
+* **Styling:** `bg-amber-100`, `text-amber-900`.
+
+
+
+#### 4. Composite & Form Components
+
+* **HeaderBox Component (Accordion)**
+* **Wrapper:** `shadow-sm` (thin grey shadow) around the entire container.
+* **Header (Trigger):** `bg-amber-600`, `text-amber-950`, `font-semibold`. Flex row, space-between. The right side contains an SVG chevron pointing up (closed) or down (opened).
+* **Body (Collapsible Content):** `bg-amber-400`, `text-amber-950`. Flex row wrapper.
+* *Left Column (70%):* Subtitle/URL (render `Tag` components below the URL if applicable), followed by an unordered bulleted list.
+* *Right Column (30% Optional):* Image container. If rendered, separate from the left column with a vertical line (`border-l border-amber-50`).
+
+
+
+
+* **CommentSection Component**
+* **InputField:** Standard rectangular `<textarea>` or `<input>`.
+* **SubmitButton:** Centered below the input. Uses `p-[2px]`. The height and text size are calculated as `1.5x` the scale of the `Tag` component. Default `bg-amber-400`, hover `bg-amber-200`, `text-amber-950`.
+
+
+
+#### 5. Timeline Layout Structure
+
+* **Vertical Track:** A thick vertical line (`border-l-[4px] border-amber-500`) that connects all timeline nodes. This vertical line must organically expand or shrink in height when an attached `HeaderBox` body is toggled open or closed.
+* **Timeline Node (Spot):**
+* **Indicator Point:** `bg-amber-50`, `border-[3px] border-amber-500`, `rounded-full`, intersecting the vertical track.
+* **Left Column (Date Labels):**
+* *Condition 1 (Same Month):* `MM/yyyy`
+* *Condition 2 (Same Year):* `MM-MM/yyyy`
+* *Condition 3 (Different Years):* Flex column rendering three lines: `MM/yyyy`, `-`, `MM/yyyy`.
+
+
+* **Right Column (Connection):** A thin horizontal line (`border-t border-amber-50`) branching off the indicator point to connect exactly to the edge of the respective `HeaderBox`.

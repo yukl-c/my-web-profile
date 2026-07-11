@@ -1,0 +1,16 @@
+---
+description: "Portfolio site conventions — amber theme, multi-page routes, content structure"
+globs: "app/**,components/**,lib/**"
+alwaysApply: true
+---
+# Profile Site Conventions
+
+1. Route map is fixed to `/`, `/about`, `/work`, `/projects`, `/contact`.
+2. Layout source of truth is `.cursor/plans/design-spec.md` (derived from paper wireframes).
+3. Use amber-forward styling via shared classes such as `.text-amber` and `.btn-amber`.
+4. Use fixed typography scale only; avoid fluid font sizing techniques.
+5. Store profile content in `lib/data/profile.ts`; avoid hardcoding long content directly in page JSX.
+6. Keep project visuals under `public/projects/` and render through `next/image`.
+7. Feedback submission must go through `POST /api/feedback`.
+8. No UI implementation until `design-spec.md` is user-approved.
+9. If wireframe design changes, update `design-spec.md` before changing UI implementation.
