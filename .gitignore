@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# My profile information
+/lib/data/profile.ts
+
+/components/profile_img/
