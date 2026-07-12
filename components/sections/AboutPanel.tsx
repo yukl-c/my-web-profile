@@ -6,13 +6,18 @@ import { profileData } from "@/lib/data/profile";
 export const AboutPanel = () => {
   return (
     <section className="space-y-6">
-      <div className="grid gap-4 md:grid-cols-[70%_30%]">
+      <div className="grid gap-4 lg:grid-cols-[70%_30%]">
         <div className="panel-shell">
+          {/* Show profile image above Name & Summary on mobile/tablet (below lg) */}
+          <div className="block lg:hidden mb-4 flex justify-center">
+            <ProfilePicture alt={`${profileData.name} profile picture`} />
+          </div>
           <h3 className="section-title">Name & Summary</h3>
           <p className="mt-2 text-xl font-semibold text-amber-900">{profileData.name}</p>
           <p className="mt-2 text-sm leading-relaxed text-stone-800">
             {profileData.summary}
           </p>
+     
         </div>
         <div className="panel-shell flex items-center justify-center">
           <ProfilePicture alt={`${profileData.name} profile picture`} />

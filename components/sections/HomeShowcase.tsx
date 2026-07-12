@@ -22,7 +22,7 @@ const panelTitleMap: Record<ShowcaseView, string> = {
 };
 
 export const HomeShowcase = () => {
-  const [activeView, setActiveView] = useState<ShowcaseView | null>(null);
+  const [activeView, setActiveView] = useState<ShowcaseView | null>("about");
 
   const activePanel = useMemo(() => {
     if (!activeView) return null;
@@ -41,43 +41,62 @@ export const HomeShowcase = () => {
     }
   }, [activeView]);
 
-  return (
-    <div className="flex min-h-screen justify-center px-4 py-6 md:px-6">
-      <div className="w-full max-w-[1200px]">
-        <div className={`mx-auto w-full lg:w-[70%] ${activeView ? "mt-2" : "mt-8"}`}>
-          <Title text={profileData.tagline} />
+  const buttonRow = (
+    <>
+      {mainNavItems.map((item) => (
+        <MainButton
+          key={item.id}
+          label={item.label}
+          iconName={activeView === item.id ? item.activeIcon : item.inactiveIcon}
+          isActive={activeView === item.id}
+          onClick={() => setActiveView(item.id)}
+        />
+      ))}
+    </>
+  );
 
-          <section className="mt-4 bg-amber-800 px-4 py-6 md:px-6 md:py-8">
-            <div className="flex flex-wrap items-center justify-center gap-3 md:gap-5 lg:gap-6">
-              {mainNavItems.map((item) => (
-                <MainButton
-                  key={item.id}
-                  label={item.label}
-                  iconName={activeView === item.id ? item.activeIcon : item.inactiveIcon}
-                  isActive={activeView === item.id}
-                  onClick={() => setActiveView(item.id)}
-                />
-              ))}
-            </div>
-          </section>
+  if (!activeView) {
+    return (
+      <div className="flex h-dvh max-h-dvh w-full flex-col overflow-hidden bg-amber-200">
+        <div className="w-full">
+          <Title text={profileData.tagline} />
         </div>
 
-        {activeView ? (
-          <section className="mx-auto mt-4 h-[80vh] w-full overflow-y-auto rounded-lg border border-amber-300 bg-stone-100 p-4 md:p-6 lg:w-[70%]">
+        <div className="hidden flex-1 lg:block" />
+
+        <section className="flex flex-1 items-center justify-center bg-amber-800 lg:h-[30vh] lg:flex-none">
+          <div className="mx-auto flex w-[70%] flex-col items-center justify-center gap-4 lg:flex-row lg:justify-center lg:gap-6">
+            {buttonRow}
+          </div>
+        </section>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex min-h-screen w-full flex-col bg-amber-200">
+      <div className="w-full">
+        <Title text={profileData.tagline} />
+      </div>
+
+      <section className="mt-4 w-full bg-amber-800 py-5 md:py-6 flex-1 flex flex-col">
+ 
+        <div className="mx-auto w-[70%]">
+          <div className="flex items-center justify-between">
+            {buttonRow}
+          </div>
+
+          <section className="mt-4">
             <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-xl font-semibold text-amber-900">
+              <h2 className="text-xl font-semibold text-white">
                 {panelTitleMap[activeView]}
               </h2>
               <CloseButton onClick={() => setActiveView(null)} />
             </div>
             {activePanel}
           </section>
-        ) : (
-          <section className="mx-auto mt-4 w-full rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900 lg:w-[70%]">
-            Select a main button to open the active content container.
-          </section>
-        )}
-      </div>
+        </div>
+      </section>
     </div>
   );
 };

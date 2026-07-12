@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fafaf9;
+  /* amber-200 — upper page band (replaces black dark-mode body) */
+  --background: #fde68a;
   --foreground: #292524;
 }
 
@@ -14,8 +15,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0c0a09;
-    --foreground: #fef3c7;
+    --background: #fde68a;
+    --foreground: #292524;
   }
 }
 
@@ -37,8 +38,12 @@ body {
   @apply inline-flex items-center justify-center rounded-md bg-amber-400 px-4 py-2 font-medium text-amber-950 transition-colors hover:bg-amber-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-300;
 }
 
-.panel-shell {
+/* .panel-shell {
   @apply rounded-lg border border-amber-200 bg-amber-50/60 p-4 dark:border-amber-800 dark:bg-amber-950/20;
+} */
+
+.panel-shell {
+  @apply rounded-lg border border-amber-200 bg-amber-50/60 p-4;
 }
 
 .section-title {

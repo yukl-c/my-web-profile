@@ -2,7 +2,7 @@ import { responsiveSizeRules } from "@/lib/data/profile";
 
 export const ResponsiveSizeGuide = () => {
   return (
-    <section className="panel-shell mt-4">
+    <section className="panel-shell">
       <h2 className="text-lg font-semibold text-amber-900">Responsive Size Guide</h2>
       <p className="mt-2 text-sm text-stone-700">
         Component behavior targets across breakpoints (mobile, tablet, desktop, wide).

@@ -17,35 +17,43 @@
 
 ## 2. Global Layout
 
-- Main shell stays centered with relative width constraints.
-- Desktop baseline:
-  - Main shell width target: about 70% viewport width.
-  - Title band: about 10vh.
-  - Navigation band: about 30vh.
-  - Active content panel: about 80vh and vertically scrollable.
-- Mobile/tablet:
-  - Width grows to available space with fixed padding.
-  - Title/nav remain top-first in reading order.
-  - Content panel remains scrollable and readable without overlap.
+- Width rule:
+  - Section backgrounds (title band, amber-200 spacer, amber-800 nav/content shell): 100% viewport width.
+  - Inner interactive content (MainButtons row/column and active content body): centered at about 70% of section width.
+- Initial state:
+  - Full viewport (`h-dvh`) and unscrollable.
+  - Desktop/laptop (`lg+`): title at top, amber-200 spacer in the middle, and amber-800 navigation band at the bottom about 30vh tall.
+  - Tablet/mobile (`< lg`): title at top, amber-800 section fills remaining height with centered vertical MainButtons.
+- Clicked state:
+  - Keep title + horizontal MainButtons + active content flow.
+  - Page can scroll naturally if content exceeds viewport height.
 
 ## 3. Per-Page Layout Breakdown
 
 ### `/` (core showcase page)
 
+Initial (`activeView = null`)
 ```
 ┌──────────────────────────────────────────────┐
-│ Title band (amber-200)                      │
+│ Title band (amber-50/200, full width)       │
 ├──────────────────────────────────────────────┤
-│ Main navigation band (amber-800)            │
-│ [About] [Work] [Project] [Contact]          │
+│ Amber-200 spacer                             │
 ├──────────────────────────────────────────────┤
-│ Active content panel (scrollable, 80vh)     │
-│ - About panel                               │
-│ - Work panel                                │
-│ - Project panel                             │
-│ - Contact panel                             │
+│ Amber-800 band (full width, desktop 30vh)   │
+│  └─ MainButtons (70% centered)              │
+│     - desktop: horizontal row               │
+│     - tablet/mobile: vertical column        │
+└──────────────────────────────────────────────┘
+```
+
+Clicked (`activeView != null`)
+```
+┌──────────────────────────────────────────────┐
+│ Title band (full width)                     │
 ├──────────────────────────────────────────────┤
-│ Responsive size guide (component behavior)  │
+│ Amber-800 shell (full width)                │
+│  └─ MainButtons row (70% centered)          │
+│  └─ Active content panel (70% centered)     │
 └──────────────────────────────────────────────┘
 ```
 
@@ -81,21 +89,25 @@
 ## 5. Responsive Rules
 
 - Mobile:
-  - Main shell uses full width with `px-4`.
-  - Main buttons wrap into 2 columns when needed.
+  - Initial viewport is unscrollable and full-screen.
+  - Amber-800 section fills remaining height below title.
+  - MainButtons are stacked in one centered vertical column inside a 70% inner container.
   - About panel top split stacks vertically.
   - Contact panel keeps info above form.
+  - Timeline uses a single-column left rail with stacked cards.
 - Tablet:
-  - Container near `max-w-3xl`.
-  - Main buttons attempt single row before wrapping.
+  - Same as mobile for initial state: unscrollable with centered vertical button column.
+  - Inner content remains centered at 70% width.
   - About split may remain side-by-side when readable.
 - Desktop:
-  - Container near 70% width target.
-  - Title/nav retain top-bands visual hierarchy.
-  - Active panel stays scrollable and dominant in height.
+  - Initial state uses a 70/30 height split feel (amber-200 upper area, amber-800 bottom band at ~30vh).
+  - MainButtons are horizontal in the bottom band, centered in a 70% inner container.
+  - Clicked state keeps full-width sections with centered 70% inner content and horizontal buttons.
+  - Timeline rail is centered with alternating left/right DetailBox entries.
 - Wide:
-  - Centered max width remains bounded.
-  - Timeline and card spacing increase modestly, not proportionally unlimited.
+  - Section backgrounds remain full-width.
+  - Inner content remains centered with bounded 70% width.
+  - Timeline spacing increases modestly without altering structure.
 
 ## 6. Component Map
 
@@ -104,7 +116,7 @@
 - Social row -> `IconButton` (GitHub/LinkedIn icons from `components/icons/`)
 - Profile image -> `ProfilePicture`
 - Skills/labels -> `Tag`
-- Expandable history/work/project entries -> `HeaderBox`
+- Work/project timeline entries -> DetailBox
 - Chronological connectors -> `Timeline`
 - Contact feedback UI shell -> `CommentSection`
 - Active panel dismiss action -> `CloseButton`

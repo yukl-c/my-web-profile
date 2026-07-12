@@ -6,15 +6,17 @@ import { Tag } from "@/components/ui/Tag";
 
 interface HeaderBoxProps {
   title: string;
-  subtitle: string;
+  duration?: string;
+  subtitle?: string;
   url?: string;
-  tags: string[];
-  bullets: string[];
+  tags?: string[];
+  bullets?: string[];
   imageSrc?: string;
 }
 
 export const HeaderBox = ({
   title,
+  duration,
   subtitle,
   url,
   tags,
@@ -28,12 +30,19 @@ export const HeaderBox = ({
       <button
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
-        className="flex w-full items-center justify-between gap-3 bg-amber-600 px-3 py-3 text-left text-amber-950"
+        className="flex w-full items-start justify-between gap-3 bg-amber-600 px-3 py-3 text-left text-amber-950"
         aria-expanded={isOpen}
       >
-        <span className="min-w-0 flex-1 truncate pr-1 font-semibold">{title}</span>
+        <span className="min-w-0 flex-1 pr-1">
+          <span className="line-clamp-3 block font-semibold md:line-clamp-2 lg:line-clamp-1">
+            {title}
+          </span>
+          {duration ? (
+            <span className="mt-0.5 block text-sm font-normal">{duration}</span>
+          ) : null}
+        </span>
         <span
-          className={`inline-flex shrink-0 transition-transform ${isOpen ? "rotate-0" : "rotate-180"}`}
+          className={`mt-0.5 inline-flex shrink-0 transition-transform ${isOpen ? "rotate-0" : "rotate-180"}`}
           aria-hidden="true"
         >
           <svg
@@ -69,15 +78,15 @@ export const HeaderBox = ({
             ) : null}
 
             <div className="mt-2 flex flex-wrap gap-2">
-              {tags.map((tag) => (
+              {tags ? tags.map((tag) => (
                 <Tag key={tag} text={tag} />
-              ))}
+              )) : null}
             </div>
 
             <ul className="mt-3 list-disc space-y-1 pl-5 text-sm">
-              {bullets.map((bullet) => (
+              {bullets ? bullets.map((bullet) => (
                 <li key={bullet}>{bullet}</li>
-              ))}
+              )) : null}
             </ul>
           </div>
 

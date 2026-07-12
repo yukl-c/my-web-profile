@@ -1,0 +1,45 @@
+### 重點摘要 (Key Summary)
+
+* **Updated Mobile "About" View:** The "Education" and "Certification" sections within the mobile and tablet "About" view have been upgraded. They are no longer simple stacked text blocks.
+* **Timeline Integration:** Both sections must now utilize the exact same dynamic central `Timeline` layout (with the vertical track, circular nodes, and expandable `HeaderBox` components) as seen in the laptop-sized screen version and the Work/Project views.
+
+---
+
+### Updated Component Description for Cursor (Mobile/Tablet)
+
+Here is the revised description for the mobile and tablet layout, specifically updating how the "About" section should be structured in your code.
+
+#### 1. Page Flow and State Management (Mobile/Tablet)
+
+* **Initial Landing State:**
+* Remains vertically unscrollable.
+* `Title` is at the top (full width, `amber-200` background).
+* `MainButton` components (About, Work, Project, Contact) are stacked in a single vertical flex-column, centered horizontally.
+
+
+* **Active Content View:**
+* Becomes vertically scrollable.
+* `MainButton` components shift to a horizontal flex-row directly beneath the `Title`, utilizing their clicked state styling.
+* The dynamic `Content` container occupies up to 80% of the screen height below the buttons.
+* The `closeButton` is the right top of the content
+
+
+
+#### 2. Detailed Component Content: "About" Section (Updated)
+
+When the "About" button is active on smaller screens, the `Content` container stacks elements vertically, but now integrates the complex timeline component for historical data.
+
+* **Profile Introduction Block:**
+* **Avatar:** `ProfilePicture` component positioned at the top center.
+* **Name:** Rendered as top-level centered text directly below the avatar.
+* **Personal Summary:** A multi-line text block below the name. *(Note: Ensure no visual borders surround this text, relying solely on padding/margins for layout).*
+
+
+* **Tech Stack Block:**
+* follow the layout of the laptop and computer screens
+* Displays categories like "Languages" and "Frontend".
+* Uses `Tag` components that flow horizontally but wrap/stack vertically based on the constrained mobile screen width.
+
+
+* **Education & Certification Block (Timeline Structure):**
+* **Layout:** Below the Tech Stack, the layout transitions into the central `Timeline` structure. So use `Timeline` components in these

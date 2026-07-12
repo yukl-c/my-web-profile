@@ -1,15 +1,16 @@
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
+import { profileMap } from "@/components/profile_img/profileMap";
 
 interface ProfilePictureProps {
-  src?: string;
+  src?: StaticImageData | string;
   alt: string;
   sizeClassName?: string;
 }
 
 export const ProfilePicture = ({
-  src = "/window.svg",
+  src = profileMap,
   alt,
-  sizeClassName = "h-40 w-40 md:h-24 md:w-24",
+  sizeClassName = "h-40 w-40 md:h-36 md:w-36",
 }: ProfilePictureProps) => {
   return (
     <div
