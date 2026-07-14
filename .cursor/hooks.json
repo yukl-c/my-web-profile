@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "hooks": {
+    "afterFileEdit": [
+      {
+        "command": "node .cursor/hooks/format-lint.mjs",
+        "timeout": 30
+      },
+      {
+        "command": "node .cursor/hooks/audit-edits.mjs",
+        "timeout": 10
+      }
+    ],
+    "beforeShellExecution": [
+      {
+        "command": "node .cursor/hooks/block-risky-shell.mjs",
+        "failClosed": true,
+        "timeout": 10
+      },
+      {
+        "type": "prompt",
+        "prompt": "You are a safety gate for shell commands in a Next.js profile site repo. Allow only when the command is reasonable for local development (git, npm/pnpm, eslint, next, file inspection). Deny destructive or exfiltrating commands: force-push, hard reset, wiping files, piping curl/wget into a shell, modifying .env secrets, or anything that could harm the machine or leak credentials. Hook input: $ARGUMENTS. Reply with permission allow or deny, plus a short user_message and agent_message.",
+        "timeout": 15
+      }
+    ],
+    "stop": [
+      {
+        "command": "node .cursor/hooks/stop-audit.mjs",
+        "timeout": 10
+      },
+      {
+        "type": "prompt",
+        "prompt": "Agent turn ended. Review the session for leftover issues: unfixed lint, secrets in edits, or risky shell usage. Only set followup_message if something concrete must be fixed now; otherwise leave it empty. Hook input: $ARGUMENTS",
+        "timeout": 15,
+        "loop_limit": 1
+      }
+    ]
+  }
+}

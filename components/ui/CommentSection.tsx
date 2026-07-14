@@ -50,6 +50,14 @@ export const CommentSection = ({ onStatus }: CommentSectionProps) => {
       return;
     }
 
+    if (trimmedMessage.length > 1000) {
+      onStatus?.({
+        message: "Please enter a message less than 1000 characters before submitting.",
+        variant: "error",
+      });
+      return;
+    }
+
     // Frontend-only for now — API wiring comes later via POST /api/feedback.
     setMessage("");
     setCooldownRemaining(COOLDOWN_SECONDS);

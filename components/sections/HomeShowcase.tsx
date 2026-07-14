@@ -25,7 +25,6 @@ export const HomeShowcase = () => {
   const [activeView, setActiveView] = useState<ShowcaseView | null>("about");
 
   const activePanel = useMemo(() => {
-    if (!activeView) return null;
 
     switch (activeView) {
       case "about":
@@ -91,7 +90,6 @@ export const HomeShowcase = () => {
               <h2 className="text-xl font-semibold text-white">
                 {panelTitleMap[activeView]}
               </h2>
-              <CloseButton onClick={() => setActiveView(null)} />
             </div>
             {activePanel}
           </section>

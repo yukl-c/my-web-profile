@@ -77,7 +77,7 @@ export const HeaderBox = ({
               </a>
             ) : null}
 
-            <p className="mt-2 text-sm font-medium">Core Technologies</p>
+            <p className="mt-2 text-sm font-medium">Core Concepts</p>
             <div className="mt-2 flex flex-wrap gap-2">
               {tags ? tags.map((tag) => (
                 <Tag key={tag} text={tag} />
