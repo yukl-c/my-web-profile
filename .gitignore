@@ -47,3 +47,6 @@ components/profile_img/
 
 # Cursor hook audit logs
 .cursor/hooks/logs/
+
+.env*
+!.env.example

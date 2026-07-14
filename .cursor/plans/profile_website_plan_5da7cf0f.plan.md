@@ -7,16 +7,16 @@ todos:
     status: completed
   - id: phase0-design
     content: "Phase 0: Receive paper wireframe photos, write .cursor/plans/design-spec.md, get user approval before coding"
-    status: in_progress
+    status: completed
   - id: phase1-core
     content: "Phase 1: lib/data/profile.ts, layout components (Header/Footer/PageShell), 5 route pages — follow approved design-spec.md"
-    status: pending
+    status: completed
   - id: phase2-decorate
     content: "Phase 2: Apply amber theme and visual polish per design-spec.md, project images, responsive pass, a11y"
-    status: pending
+    status: completed
   - id: phase3-backend
     content: "Phase 3: Supabase migration, Zod validation, POST /api/feedback, ContactForm client component"
-    status: pending
+    status: completed
   - id: phase4-deploy
     content: "Phase 4: Vercel deploy, env vars, README setup docs, post-deploy smoke test"
     status: pending
@@ -111,7 +111,6 @@ This document will be structured as follows (filled in from your wireframes):
 
 #### 2. Global layout (from your wireframe)
 
-- Header: logo/title placement, nav item order, fixed or scrolls
 - Footer: content and links
 - Page container width and horizontal padding
 - Mobile nav pattern (hamburger, drawer, etc.) — **from your sketch, not assumed**
@@ -332,6 +331,10 @@ export interface Profile {
 7. Responsive testing per `[.cursor/skills/responsive-testing.md](.cursor/skills/responsive-testing.md)` — compare result to wireframe photos
 
 ## Phase 3 — Feedback Backend (Supabase)
+
+**Status: Completed** (2026-07-14)
+
+Implemented with approved adaptations: `contacts` table (message-only), `CommentSection` wired to `POST /api/feedback`, lazy Supabase init for CI, Vitest unit tests.
 
 **Goal:** Visitors submit feedback; data persists in database.
 
