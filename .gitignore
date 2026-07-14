@@ -42,7 +42,9 @@ next-env.d.ts
 
 # Personal profile overrides (CI copies from .sample files)
 lib/data/profile.local.ts
+lib/data/profile.runtime.ts
 components/profile_img/profileMap.local.ts
+components/profile_img/profileMap.runtime.ts
 
 # Cursor hook audit logs
 .cursor/hooks/logs/

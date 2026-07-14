@@ -1,6 +1,5 @@
 import type { StaticImageData } from "next/image";
 
-import placeholder from "@/components/icons/about_amber200.svg";
+import CMY_profile from "@/components/profile_img/CMY_profile.svg";
 
-/** Bundled profile image. Auto-synced from profileMap.local.ts before dev/build. */
-export const profileMap: StaticImageData = placeholder;
+export const profileMap: StaticImageData = CMY_profile;
