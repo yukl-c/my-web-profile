@@ -44,3 +44,6 @@ next-env.d.ts
 lib/data/profile.ts
 
 components/profile_img/
+
+# Cursor hook audit logs
+.cursor/hooks/logs/
