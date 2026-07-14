@@ -71,12 +71,13 @@ export const HeaderBox = ({
                 href={url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-1 inline-block text-sm underline"
+                className="mt-1 inline-block text-sm underline truncate max-w-full"
               >
                 {url}
               </a>
             ) : null}
 
+            <p className="mt-2 text-sm font-medium">Core Technologies</p>
             <div className="mt-2 flex flex-wrap gap-2">
               {tags ? tags.map((tag) => (
                 <Tag key={tag} text={tag} />

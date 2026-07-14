@@ -15,10 +15,10 @@ import {
 } from "@/lib/data/profile";
 
 const panelTitleMap: Record<ShowcaseView, string> = {
-  about: "About View",
-  work: "Work View",
-  project: "Project View",
-  contact: "Contact View",
+  about: "About",
+  work: "Work",
+  project: "Project",
+  contact: "Contact",
 };
 
 export const HomeShowcase = () => {

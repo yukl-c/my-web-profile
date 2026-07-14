@@ -1,6 +1,13 @@
+"use client";
+
+import { useCallback, useState } from "react";
 import { IconButton } from "@/components/ui/IconButton";
-import { CommentSection } from "@/components/ui/CommentSection";
+import {
+  CommentSection,
+  type CommentSubmitStatus,
+} from "@/components/ui/CommentSection";
 import { Icon } from "@/components/ui/Icon";
+import { Toast } from "@/components/ui/Toast";
 import { profileData } from "@/lib/data/profile";
 
 const socialIconMap = {
@@ -9,9 +16,19 @@ const socialIconMap = {
 } as const;
 
 export const ContactPanel = () => {
+  const [toast, setToast] = useState<CommentSubmitStatus | null>(null);
+
+  const handleCommentStatus = useCallback((status: CommentSubmitStatus) => {
+    setToast(status);
+  }, []);
+
+  const handleToastClose = useCallback(() => {
+    setToast(null);
+  }, []);
+
   return (
-    <section className="grid gap-4 md:grid-rows-2">
-      <div className="panel-shell">
+    <section className="grid gap-3">
+      <div className="panel-shell h-fit">
         <h3 className="section-title">Contact Info</h3>
 
         <div className="mt-4 space-y-3">
@@ -40,12 +57,20 @@ export const ContactPanel = () => {
       <div className="panel-shell">
         <h3 className="section-title">Comment</h3>
         <p className="mt-2 text-sm text-stone-700">
-          UI preview only. Backend submit is scheduled for Phase 3.
+          Please feel free to share your inquiries or feedback. I review all
+          submissions and will respond promptly.
         </p>
         <div className="mt-4">
-          <CommentSection />
+          <CommentSection onStatus={handleCommentStatus} />
         </div>
       </div>
+
+      <Toast
+        open={toast !== null}
+        message={toast?.message ?? ""}
+        variant={toast?.variant}
+        onClose={handleToastClose}
+      />
     </section>
   );
 };

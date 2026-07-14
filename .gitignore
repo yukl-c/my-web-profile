@@ -41,6 +41,6 @@ yarn-error.log*
 next-env.d.ts
 
 # My profile information
-/lib/data/profile.ts
+lib/data/profile.ts
 
-/components/profile_img/
+components/profile_img/

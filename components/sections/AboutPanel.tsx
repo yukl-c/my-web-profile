@@ -19,7 +19,7 @@ export const AboutPanel = () => {
           </p>
      
         </div>
-        <div className="panel-shell flex items-center justify-center">
+        <div className="panel-shell max-md:hidden flex items-center justify-center">
           <ProfilePicture alt={`${profileData.name} profile picture`} />
         </div>
       </div>
