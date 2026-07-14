@@ -24,7 +24,7 @@ Before the first run, create your local profile data:
 cp lib/data/profile.sample.ts lib/data/profile.local.ts
 ```
 
-Edit `lib/data/profile.local.ts` to update site content. See [docs/profile-data.md](docs/profile-data.md).
+Edit `lib/data/profile.local.ts` to update site content. `npm run dev` syncs it into `profile.runtime.ts` (the file the app imports). See [docs/profile-data.md](docs/profile-data.md).
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
