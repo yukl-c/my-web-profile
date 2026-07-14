@@ -1,5 +1,7 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+Personal portfolio site with content driven by a typed data layer. See [docs/profile-data.md](docs/profile-data.md) for how to edit bio, work history, projects, and contact details.
+
 ## Getting Started
 
 First, run the development server:
@@ -16,7 +18,13 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Before the first run, create your local profile data:
+
+```bash
+cp lib/data/profile.sample.ts lib/data/profile.local.ts
+```
+
+Edit `lib/data/profile.local.ts` to update site content. See [docs/profile-data.md](docs/profile-data.md).
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
