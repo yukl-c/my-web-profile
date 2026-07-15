@@ -219,7 +219,7 @@ export const getProfile = async (profileId: string = PROFILE_ID): Promise<Profil
       .order("id", { ascending: true }),
     supabase
       .from("certifications")
-      .select("id, title, url, start_month, start_year, end_month, end_year, tags")
+      .select("id, title, subtitle, url, start_month, start_year, end_month, end_year, tags")
       .eq("profile_id", profileId)
       .order("id", { ascending: true }),
     supabase
