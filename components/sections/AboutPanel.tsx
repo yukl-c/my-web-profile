@@ -10,21 +10,22 @@ interface AboutPanelProps {
 export const AboutPanel = ({ profile }: AboutPanelProps) => {
   return (
     <section className="space-y-6">
-      <div className="grid gap-4 lg:grid-cols-[70%_30%]">
-        <div className="panel-shell">
-          {/* Show profile image above Name & Summary on mobile/tablet (below lg) */}
-          <div className="block lg:hidden mb-4 flex justify-center">
+      <div className="panel-shell">
+        <div className="grid w-full gap-4 lg:grid-cols-[7fr_3fr]">
+          <div>
+            {/* Show profile image above Name & Summary on mobile/tablet (below lg) */}
+            <div className="mb-4 flex justify-center lg:hidden">
+              <ProfilePicture src={profile.avatar} alt={`${profile.name} profile picture`} />
+            </div>
+            <h3 className="section-title">Name & Summary</h3>
+            <p className="mt-2 text-xl font-semibold text-amber-900">{profile.name}</p>
+            <p className="mt-2 text-sm leading-relaxed text-stone-800">
+              {profile.summary}
+            </p>
+          </div>
+          <div className="hidden items-center justify-center lg:flex">
             <ProfilePicture src={profile.avatar} alt={`${profile.name} profile picture`} />
           </div>
-          <h3 className="section-title">Name & Summary</h3>
-          <p className="mt-2 text-xl font-semibold text-amber-900">{profile.name}</p>
-          <p className="mt-2 text-sm leading-relaxed text-stone-800">
-            {profile.summary}
-          </p>
-     
-        </div>
-        <div className="panel-shell hidden lg:flex items-center justify-center">
-          <ProfilePicture src={profile.avatar} alt={`${profile.name} profile picture`} />
         </div>
       </div>
 
