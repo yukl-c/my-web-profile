@@ -1,3 +1,10 @@
+/**
+ * Profile content types for the portfolio site.
+ *
+ * Shared by Supabase (`getProfile`) and static files (`profile.runtime.ts`).
+ * @see docs/profile-data.md
+ */
+
 /** Active panel on the home showcase (single-page nav). */
 export type ShowcaseView = "about" | "work" | "project" | "contact";
 

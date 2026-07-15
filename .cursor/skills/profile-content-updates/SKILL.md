@@ -11,9 +11,11 @@ Use this skill for copy/content refreshes while preserving layout and component 
 
 ## Update sources
 
-1. `lib/data/profile.local.ts` for structured content (imported via `lib/data/profile.ts`)
-2. `public/projects/` for project imagery
-3. Page metadata exports for SEO text
+1. **Production** — Supabase rows loaded by `getProfile()` (see `docs/profile-data.md`)
+2. `lib/data/profile.local.ts` for local static overrides (synced via `scripts/sync-profile-content.mjs`)
+3. `components/profile_img/` for local profile picture fallback
+4. `public/projects/` for project imagery
+5. Page metadata exports for SEO text
 
 Full reference: [docs/profile-data.md](../../../docs/profile-data.md)
 

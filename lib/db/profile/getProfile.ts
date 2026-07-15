@@ -3,6 +3,15 @@ import "server-only";
 import type { ProfileData, SocialLink, TimelineEntry } from "@/lib/data/profile.types";
 import { getSupabase } from "@/lib/db/supabase";
 
+/**
+ * Loads portfolio content from Supabase and maps rows to {@link ProfileData}.
+ *
+ * Used by `app/page.tsx` at request time. For types, static samples, and local
+ * dev sync, see `docs/profile-data.md`.
+ *
+ * @throws {Error} `"Unable to load profile."` when the profile or any related query fails.
+ */
+
 export const PROFILE_ID =
   process.env.PROFILE_ID ?? "11111111-1111-1111-1111-111111111111";
 
@@ -130,6 +139,7 @@ const mapTimelineEntry = (
   return timelineEntry;
 };
 
+/** Pure mapper from Supabase query rows to {@link ProfileData}. Exported for unit tests. */
 export const mapRowsToProfileData = (rows: ProfileQueryRows): ProfileData => {
   const socialLinks: SocialLink[] = rows.socialLinks.flatMap((socialLink) => {
     if (!isSupportedSocialLinkId(socialLink.id)) {
@@ -166,6 +176,11 @@ export const mapRowsToProfileData = (rows: ProfileQueryRows): ProfileData => {
   };
 };
 
+/**
+ * Fetches one profile and all related timeline/contact rows from Supabase.
+ *
+ * @param profileId - UUID of the `profiles` row (defaults to `PROFILE_ID` env).
+ */
 export const getProfile = async (profileId: string = PROFILE_ID): Promise<ProfileData> => {
   const supabase = getSupabase();
 
