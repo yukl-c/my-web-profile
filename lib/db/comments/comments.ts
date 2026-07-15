@@ -1,14 +1,14 @@
 import { getSupabase } from "@/lib/db/supabase";
 
-export const CONTACTS_TABLE_NAME = "contacts";
+export const COMMENTS_TABLE_NAME = "comments";
 
-interface ContactInsertRow {
+interface CommentInsertRow {
   id: string;
 }
 
-export const insertContact = async (message: string): Promise<ContactInsertRow> => {
+export const insertComment = async (message: string): Promise<CommentInsertRow> => {
   const { data, error } = await getSupabase()
-    .from(CONTACTS_TABLE_NAME)
+    .from(COMMENTS_TABLE_NAME)
     .insert({ message })
     .select("id")
     .single();
@@ -17,5 +17,5 @@ export const insertContact = async (message: string): Promise<ContactInsertRow> 
     throw new Error("Unable to save feedback.");
   }
 
-  return { id: (data as ContactInsertRow).id };
+  return { id: (data as CommentInsertRow).id };
 };

@@ -4,16 +4,33 @@ import { fileURLToPath } from "node:url";
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 
+/**
+ * Sync profile content for local dev vs deploy:
+ * - profile.local.ts exists → copy to profile.runtime.ts (local edits win)
+ * - no local file → keep committed profile.runtime.ts (Vercel/CI uses this)
+ * - neither local nor runtime → bootstrap both from sample (first-time setup)
+ */
 function syncContent({ sample, local, runtime }) {
   mkdirSync(path.dirname(runtime), { recursive: true });
 
-  if (!existsSync(local)) {
-    copyFileSync(sample, local);
-    console.log(`Created ${path.relative(root, local)} from sample.`);
+  if (existsSync(local)) {
+    copyFileSync(local, runtime);
+    return;
   }
 
-  const source = existsSync(local) ? local : sample;
-  copyFileSync(source, runtime);
+  if (!existsSync(runtime)) {
+    copyFileSync(sample, runtime);
+    copyFileSync(sample, local);
+    console.log(
+      `Created ${path.relative(root, local)} and ${path.relative(root, runtime)} from sample.`,
+    );
+    return;
+  }
+
+  copyFileSync(sample, local);
+  console.log(
+    `Created ${path.relative(root, local)} from sample. Using committed ${path.relative(root, runtime)}.`,
+  );
 }
 
 syncContent({

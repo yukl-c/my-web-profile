@@ -7,6 +7,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": rootDirectory,
+      "server-only": `${rootDirectory}test/mocks/server-only.ts`,
     },
   },
   test: {

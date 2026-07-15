@@ -2,17 +2,18 @@
 name: parallel-code-review
 description: Run four parallel read-only subagents that each review the same diff from a different lens — security, performance, correctness, and readability — then merge findings into one report. Use before merging large or risky PRs.
 user-invocable: true
+disable-model-invocation: true
 ---
 
 # Parallel Code Review
 
-Use Cursor’s **Task** tool to run **four** `explore` (read-only) subagents at once. Each subagent only reads code and produces findings for one dimension. The main agent merges results into a single prioritized review — something only a multi-agent setup does efficiently.
+Use Cursor's **Task** tool to run **four** `explore` (read-only) subagents at once. Each subagent only reads code and produces findings for one dimension. The main agent merges results into a single prioritized review.
 
 ## When to use
 
-- Large diffs or refactors where a single pass misses categories.
-- Security-sensitive changes (auth, payments, parsing untrusted input).
-- Performance-sensitive paths (hot loops, N+1 queries, bundle entry points).
+- Large diffs or refactors where a single pass misses categories
+- Security-sensitive changes (auth, payments, parsing untrusted input)
+- Performance-sensitive paths (hot loops, N+1 queries, bundle entry points)
 
 ## Workflow
 
@@ -21,7 +22,7 @@ Use Cursor’s **Task** tool to run **four** `explore` (read-only) subagents at 
 Prefer a concrete list of files for reviewers:
 
 ```bash
-git diff --name-only origin/main...HEAD
+git diff --name-only origin/master...HEAD
 ```
 
 Or paste the PR link and let the main agent list changed files from the branch.
@@ -89,9 +90,9 @@ Output: same format; prefer suggestions over nitpicks.
 
 The main agent should:
 
-1. De-duplicate findings that appear in multiple dimensions (count once, worst severity).
-2. Order by severity, then by fix cost.
-3. Produce a short executive summary (5 bullets max) and a table or list of actionable items.
+1. De-duplicate findings that appear in multiple dimensions (count once, worst severity)
+2. Order by severity, then by fix cost
+3. Produce a short executive summary (5 bullets max) and a table or list of actionable items
 
 ### 4. Optional — address findings
 
@@ -99,6 +100,6 @@ Fix in the main agent or spawn targeted **non-readonly** follow-up tasks only fo
 
 ## Notes
 
-- Keep prompts **read-only** so parallel runs never fight over writes.
-- If the diff is huge, split by directory and run four reviewers **per directory** in a second wave — do not cram unrelated megadiffs into one pass.
-- This complements human review; it does not replace compliance or security sign-off for regulated environments.
+- Keep prompts **read-only** so parallel runs never fight over writes
+- If the diff is huge, split by directory and run four reviewers **per directory** in a second wave
+- This complements human review; it does not replace compliance or security sign-off for regulated environments

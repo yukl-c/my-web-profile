@@ -5,6 +5,7 @@ import aboutWhite from "@/components/icons/about_white.svg";
 import contactAmber from "@/components/icons/contacts_amber200.svg";
 import contactWhite from "@/components/icons/contacts_white.svg";
 import email from "@/components/icons/email.svg";
+import error from "@/components/icons/error.svg";
 import github from "@/components/icons/github.svg";
 import linkedin from "@/components/icons/linkedin.svg";
 import projectAmber from "@/components/icons/project_amber200.svg";
@@ -19,6 +20,7 @@ export const iconMap = {
   contactAmber,
   contactWhite,
   email,
+  error,
   github,
   linkedin,
   projectAmber,

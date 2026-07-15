@@ -1,7 +1,8 @@
 ---
 name: paper-wireframe-design
-description: Convert paper wireframes into an implementation-ready design spec before coding.
+description: Convert paper wireframes into an implementation-ready design spec at .cursor/plans/design-spec.md before coding this profile site.
 user-invocable: true
+disable-model-invocation: true
 ---
 
 # Paper Wireframe Design Workflow
@@ -12,35 +13,40 @@ Use this workflow when the design source is hand-drawn wireframes instead of Fig
 
 Create `.cursor/plans/design-spec.md` as the source of truth for UI layout and styling before implementation.
 
-## Input Checklist
+## Input checklist
 
 - Photos are clear, full-frame, and labeled by page
 - Region names are visible (header, hero, projects grid, contact form, etc.)
 - Proportion notes are included where meaningful
 - Mobile variations are provided if they differ from desktop
 
-## Output Requirements
+## Output requirements
 
 `design-spec.md` should include:
 
-1. Route map and user journey
+1. Route map and user journey (`/`, `/about`, `/work`, `/projects`, `/contact`)
 2. Global layout (header/footer/container/nav behavior)
 3. Per-page breakdown with region order and proportions
 4. Style guidance (amber usage, fixed typography, spacing rhythm)
 5. Responsive rules and explicit assumptions
-6. Component map (wireframe box → component name)
+6. Component map (wireframe box → component name under `components/`)
 
 ## Rules
 
-- Do not start UI implementation until spec is approved by user.
-- If any section is unclear, ask concise clarifying questions first.
-- Mark every guess as `assumed — confirm` in the spec.
-- When wireframes change, update spec first, then code.
+- Do not start UI implementation until spec is approved by user
+- If any section is unclear, ask concise clarifying questions first
+- Mark every guess as `assumed — confirm` in the spec
+- When wireframes change, update spec first, then code
+- Follow phase gates in `.cursor/plans/profile-website.md`
 
-## Approval Gate
+## Approval gate
 
 | Status | Meaning |
 |--------|---------|
 | **Draft** | Spec written from wireframes; awaiting review |
 | **Approved** | User confirmed layout, styles, workflow — coding may start |
 | **Revise** | User sends updated sketch or notes; spec is updated |
+
+## After approval
+
+Use `using-ui-stack` for styling and `ci-validate-and-fix` after implementation.
