@@ -42,6 +42,7 @@ export interface ProfileData {
   name: string;
   tagline: string;
   summary: string;
+  avatar?: string;
   techStackGroups: Array<{
     label: string;
     tags: string[];

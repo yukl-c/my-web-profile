@@ -8,14 +8,18 @@ import {
 } from "@/components/ui/CommentSection";
 import { Icon } from "@/components/ui/Icon";
 import { Toast } from "@/components/ui/Toast";
-import { profileData } from "@/lib/data/profile";
+import type { ProfileData } from "@/lib/data/profile";
 
 const socialIconMap = {
   github: "github",
   linkedin: "linkedin",
 } as const;
 
-export const ContactPanel = () => {
+interface ContactPanelProps {
+  profile: ProfileData;
+}
+
+export const ContactPanel = ({ profile }: ContactPanelProps) => {
   const [toast, setToast] = useState<CommentSubmitStatus | null>(null);
 
   const handleCommentStatus = useCallback((status: CommentSubmitStatus) => {
@@ -34,16 +38,16 @@ export const ContactPanel = () => {
         <div className="mt-4 space-y-3">
           <p className="flex items-center gap-2 text-sm text-stone-800">
             <Icon iconName="telephone" alt="Telephone icon" />
-            <span>{profileData.contact.phone}</span>
+            <span>{profile.contact.phone}</span>
           </p>
           <p className="flex items-center gap-2 text-sm text-stone-800">
             <Icon iconName="email" alt="Email icon" />
-            <span>{profileData.contact.email}</span>
+            <span>{profile.contact.email}</span>
           </p>
         </div>
 
         <div className="mt-5 flex items-center gap-5">
-          {profileData.contact.socialLinks.map((link) => (
+          {profile.contact.socialLinks.map((link) => (
             <IconButton
               key={link.id}
               label={link.label}

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { insertContact } from "@/lib/db/contacts";
+import { insertComment } from "@/lib/db/comments/comments";
 import { feedbackBodySchema } from "@/lib/validations/feedback";
 
 const INVALID_MESSAGE_ERROR = "Please enter a valid message before submitting.";
@@ -32,7 +32,7 @@ export async function POST(request: Request) {
   }
 
   try {
-    await insertContact(parsed.data.message);
+    await insertComment(parsed.data.message);
     return NextResponse.json({ success: true }, { status: 200 });
   } catch {
     return NextResponse.json(

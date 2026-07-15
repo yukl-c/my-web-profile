@@ -1,20 +1,20 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { POST } from "@/app/api/feedback/route";
-import { insertContact } from "@/lib/db/contacts";
+import { insertComment } from "@/lib/db/comments/comments";
 
-vi.mock("@/lib/db/contacts", () => ({
-  insertContact: vi.fn(),
+vi.mock("@/lib/db/comments/comments", () => ({
+  insertComment: vi.fn(),
 }));
 
 describe("POST /api/feedback", () => {
-  const insertContactMock = vi.mocked(insertContact);
+  const insertCommentMock = vi.mocked(insertComment);
 
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
   it("returns 200 for valid payload", async () => {
-    insertContactMock.mockResolvedValue({ id: "row-1" });
+    insertCommentMock.mockResolvedValue({ id: "row-1" });
 
     const request = new Request("http://localhost/api/feedback", {
       method: "POST",
@@ -27,7 +27,7 @@ describe("POST /api/feedback", () => {
 
     expect(response.status).toBe(200);
     expect(body.success).toBe(true);
-    expect(insertContactMock).toHaveBeenCalledWith("Looks great");
+    expect(insertCommentMock).toHaveBeenCalledWith("Looks great");
   });
 
   it("returns 400 when payload is invalid", async () => {
@@ -42,7 +42,7 @@ describe("POST /api/feedback", () => {
 
     expect(response.status).toBe(400);
     expect(body.error).toBeDefined();
-    expect(insertContactMock).not.toHaveBeenCalled();
+    expect(insertCommentMock).not.toHaveBeenCalled();
   });
 
   it("returns 400 when json parsing fails", async () => {
@@ -55,7 +55,7 @@ describe("POST /api/feedback", () => {
     const response = await POST(request);
 
     expect(response.status).toBe(400);
-    expect(insertContactMock).not.toHaveBeenCalled();
+    expect(insertCommentMock).not.toHaveBeenCalled();
   });
 
   it("returns 400 when honeypot field is filled", async () => {
@@ -71,11 +71,11 @@ describe("POST /api/feedback", () => {
     const response = await POST(request);
 
     expect(response.status).toBe(400);
-    expect(insertContactMock).not.toHaveBeenCalled();
+    expect(insertCommentMock).not.toHaveBeenCalled();
   });
 
   it("returns 500 when insert throws", async () => {
-    insertContactMock.mockRejectedValue(new Error("db unavailable"));
+    insertCommentMock.mockRejectedValue(new Error("db unavailable"));
 
     const request = new Request("http://localhost/api/feedback", {
       method: "POST",

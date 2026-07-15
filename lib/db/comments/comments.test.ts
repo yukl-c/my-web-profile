@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { CONTACTS_TABLE_NAME, insertContact } from "@/lib/db/contacts";
+import { COMMENTS_TABLE_NAME, insertComment } from "@/lib/db/comments/comments";
 import { getSupabase } from "@/lib/db/supabase";
 
 vi.mock("@/lib/db/supabase", () => ({
@@ -25,9 +25,9 @@ describe("insertContact", () => {
 
     fromMock.mockReturnValue({ insert: insertMock } as never);
 
-    await expect(insertContact("hello")).resolves.toEqual({ id: "abc-123" });
+    await expect(insertComment("hello")).resolves.toEqual({ id: "abc-123" });
     expect(getSupabaseMock).toHaveBeenCalled();
-    expect(fromMock).toHaveBeenCalledWith(CONTACTS_TABLE_NAME);
+    expect(fromMock).toHaveBeenCalledWith(COMMENTS_TABLE_NAME);
     expect(insertMock).toHaveBeenCalledWith({ message: "hello" });
     expect(selectMock).toHaveBeenCalledWith("id");
     expect(singleMock).toHaveBeenCalled();
@@ -43,7 +43,7 @@ describe("insertContact", () => {
 
     fromMock.mockReturnValue({ insert: insertMock } as never);
 
-    await expect(insertContact("hello")).rejects.toThrow(
+    await expect(insertComment("hello")).rejects.toThrow(
       "Unable to save feedback.",
     );
   });

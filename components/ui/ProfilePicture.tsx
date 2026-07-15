@@ -16,7 +16,7 @@ export const ProfilePicture = ({
     <div
       className={`relative overflow-hidden rounded-full border border-amber-300 bg-white ${sizeClassName}`}
     >
-      <Image src={src} alt={alt} fill className="object-cover p-2" />
+      <Image src={src} alt={alt} fill className="object-cover p-2" loading="eager" />
     </div>
   );
 };
