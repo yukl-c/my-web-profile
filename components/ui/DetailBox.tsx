@@ -43,6 +43,7 @@ export const DetailBox = ({
             </a>
           ) : null}
 
+          {tags ? <p className="mt-2 text-sm font-medium">Core Concepts</p> : null}
           <div className="mt-2 flex flex-wrap gap-2">
             {tags ? tags.map((tag) => (
               <Tag key={tag} text={tag} />
