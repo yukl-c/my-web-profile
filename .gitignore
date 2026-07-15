@@ -40,14 +40,16 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Personal profile overrides (CI copies from .sample files)
+# Personal profile overrides (optional local dev; production uses committed .runtime.ts)
 lib/data/profile.local.ts
 lib/data/profile.runtime.ts
-components/profile_img/profileMap.local.ts
-components/profile_img/profileMap.runtime.ts
+components/profile_img/
+!components/profile_img/profileMap.sample.ts
 
 # Cursor hook audit logs
 .cursor/hooks/logs/
 
 .env*
 !.env.example
+
+*.png
