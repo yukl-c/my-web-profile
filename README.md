@@ -41,7 +41,7 @@ Shared UI configuration (not personal copy) lives in `lib/data/profile.config.ts
 - `mainNavItems` — panel labels and icon keys
 - `responsiveSizeRules` — design-spec breakpoint notes for implementers
 
-Profile picture fallback (when no `avatar` URL) comes from `components/profile_img/profileMap` — synced from local or sample files.
+Profile picture fallback (when no `avatar` URL) comes from `components/profile_img/profileMap`.
 
 Full type and field reference: [docs/profile-data.md](docs/profile-data.md).
 
@@ -69,19 +69,7 @@ ContactPanel → POST /api/feedback
 
 Returns `{ success: true }` on success or a safe error message with HTTP 400/500.
 
-### Static content sync
-
-`scripts/sync-profile-content.mjs` runs before `dev` and `build`:
-
-- Copies `profile.local.ts` → `profile.runtime.ts` when local exists
-- Bootstraps from `profile.sample.ts` on first setup
-- Same pattern for `profileMap.local.ts` → `profileMap.runtime.ts`
-
-Used for CI builds and optional local static overrides — not the live home-page data path.
-
 ## Data source and handling
-
-### Production (home page)
 
 Live content is loaded from **Supabase** at request time.
 
@@ -97,36 +85,17 @@ Live content is loaded from **Supabase** at request time.
 
 DB rows use snake_case columns; `mapRowsToProfileData()` converts them to camelCase `ProfileData`. Timeline rows are sorted newest-first. Unsupported social link IDs (e.g. `website`) are silently dropped.
 
-### Static file layer
-
-| File | Role |
-|------|------|
-| `profile.types.ts` | Shared TypeScript interfaces |
-| `profile.config.ts` | Committed nav + responsive rules |
-| `profile.sample.ts` | Committed placeholder for CI |
-| `profile.local.ts` | Gitignored personal overrides |
-| `profile.runtime.ts` | Gitignored synced copy |
-
-### Feedback data
-
 Visitor messages are stored in the Supabase `contacts` / `comments` table via `insertComment()` (see `lib/db/comments/`).
 
 ```mermaid
 flowchart LR
-  subgraph home [Home page]
-    page[app/page.tsx]
-    getProfile[getProfile]
-    showcase[HomeShowcase]
-    page --> getProfile --> showcase
-  end
+  page[app/page.tsx]
+  getProfile[getProfile]
+  showcase[HomeShowcase]
+  supabase[(Supabase)]
 
-  subgraph data [Data sources]
-    supabase[(Supabase)]
-    static[profile.types + config]
-  end
-
+  page --> getProfile --> showcase
   getProfile --> supabase
-  showcase --> static
 ```
 
 ## Error handling
@@ -141,14 +110,14 @@ flowchart LR
 | **Feedback POST** | Database insert failure | `500` — `"Unable to save feedback."` |
 | **ContactPanel UI** | Submit result | Toast shows success or error state via `CommentSubmitStatus` |
 | **Avatar** | No `profile.avatar` URL | `ProfilePicture` falls back to local `profileMap` image |
-| **Static sync** | No local file on fresh clone | Sync script bootstraps from `profile.sample.ts` during `dev` / `build` |
 
 ## Documentation
 
 | Doc | Contents |
 |-----|----------|
 | [docs/instructions.md](docs/instructions.md) | Setup, env vars, scripts, deployment |
-| [docs/profile-data.md](docs/profile-data.md) | Profile types, API, sync workflow, pitfalls |
+| [docs/profile-data.md](docs/profile-data.md) | Profile types, Supabase loader, pitfalls |
+| [docs/cursor-development-workflow.md](docs/cursor-development-workflow.md) | How this site was built with Cursor (prep, phases 0–4, AI habits) |
 | `.cursor/plans/design-spec.md` | Layout and visual design source of truth |
 
 ## Tech stack
