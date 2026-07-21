@@ -2,6 +2,8 @@
 
 URL: https://my-web-profile-three.vercel.app/
 
+Video walk through: https://youtu.be/eJYYw5VB8WE
+
 A responsive, amber-themed personal portfolio built with **Next.js 16** (App Router), **React 19**, **TypeScript**, and **Tailwind CSS 4**. The home page is an interactive single-page showcase — visitors switch between About, Work, Project, and Contact panels without full page reloads.
 
 ## Website overview
